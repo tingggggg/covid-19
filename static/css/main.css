@@ -1,0 +1,112 @@
+body{
+    margin: 0;
+    background: #333;
+}
+#title {
+    position: absolute;
+    width: 40%;
+    height: 10%;
+    top:0;
+    left: 30%;
+    /* background: #666666; */
+    color: white;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#tim {
+	position: absolute;
+	/* width: 30%; */
+	height: 10%;
+	top: 5%;
+	right: 2%;
+	color: #FFFFFF;
+	font-size: 20px;
+	/* background: green; */
+}
+#c1 {
+    position: absolute;
+    width: 40%;
+    height: 30%;
+    top: 10%;
+    left: 30%;
+    color: white;
+    /* background: #777777; */
+}
+.num {
+    width: 25%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gold;
+    font-size: 20px;
+}
+.txt {
+    width: 25%;
+    float: left;
+    font-family: "";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#c2 {
+    position: absolute;
+    width: 50%;
+    height: 30%;
+    bottom: 40%;
+    left: 2%;
+    background: #e3e7e3;
+}
+#c3 {
+    position: absolute;
+    width: 50%;
+    height: 35%;
+    bottom: 5%;
+    left: 2%;
+}
+
+
+
+#app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 50%;
+    height: 60%;
+    bottom: 5%;
+    right: 0;
+    /* transform: translate3d(-50%, -50%, 0); */
+    
+}
+
+svg {
+    height: 100%;
+    width: 100%;
+    flex: 3;
+}
+
+path {
+    stroke: white;
+    fill: transparent;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+:root {
+    --color-gold: #B99362;
+}
+path:hover {
+    fill: var(--color-gold);
+    transform: translate(-5px, -5px);
+}
+
+.title_area {
+    flex: 2;
+    margin-right: 3vw;
+    margin-top: -5vh;
+    color: white;
+    font-size: 30px;
+}

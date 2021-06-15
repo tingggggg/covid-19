@@ -5,14 +5,11 @@ def get_time():
     time_str = time.strftime("%Y{}%m{}%d{} %X")
     return time_str.format("年","月","日")
 
-
 def get_conn():
-    # 建立连接
+    # 建立連接
     conn = pymysql.connect(host="127.0.0.1", user="root", password="123", db="cov", charset="utf8")
-    # c创建游标A
     cursor = conn.cursor()
     return conn, cursor
-
 
 def close_conn(conn, cursor):
     if cursor:

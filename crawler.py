@@ -11,48 +11,9 @@ import traceback
 import pymysql
 
 
-def update():
-    headers = {
-            'Content-Type': 'application/json'
-        }
-    url = "https://covid-19.nchc.org.tw/dt_005-covidTable_taiwan.php"
-
-    res = requests.get(url, headers=headers, verify=False)
-
-
-    print(res.encoding)
-    print(res.headers)
-    print(res.url)
-    print(res.status_code)
-
-    html = res.text
-    soup = BeautifulSoup(html, "html.parser")
-
-
-    country_confirmed = soup.find('h1', {"class": re.compile(r'country_confirmed')}).text
-    country_deaths = soup.find('h1', {"class": re.compile(r'country_deaths')}).text
-    country_recovered = soup.find('h1', {"class": re.compile(r'country_recovered')}).text
-    country_vaccined = soup.find('h1', {"class": re.compile(r'country_deaths')}).text
-
-    cities = soup.find('h3', text="2021年 本土病例分佈").parent
-    cities = cities.find_all("span", style="font-size: 1em;")
-    cities_confirmed = {}
-    cities_add_confirmed = {}
-    for city in cities:
-        city_name, datas = city.text.split(" ")
-        if "+" in datas:
-            confirmed, add_confirmed = datas.split("+")
-            confirmed = int(confirmed)
-            add_confirmed = int(add_confirmed)
-        else:
-            confirmed = int(datas)
-            add_confirmed = 0
-        print(city_name, confirmed, add_confirmed)
-
 def get_conn():
-    # 建立连接
+    # 建立連接
     conn = pymysql.connect(host="127.0.0.1", user="root", password="123", db="cov", charset="utf8")
-    # c创建游标
     cursor = conn.cursor()
     return conn, cursor
 
@@ -64,7 +25,7 @@ def close_conn(conn, cursor):
 
 def get_history():
     option = ChromeOptions()
-    option.add_argument("--headless")#隐藏游览器
+    option.add_argument("--headless")#不開啟瀏覽器
     option.add_argument("--no--sandbox")
     browser =  Chrome(options = option,executable_path="./chromedriver")
 
@@ -83,7 +44,7 @@ def get_history():
 
 def get_details():
     option = ChromeOptions()
-    option.add_argument("--headless")#隐藏游览器
+    option.add_argument("--headless")#不開啟瀏覽器
     option.add_argument("--no--sandbox")
     browser =  Chrome(options = option,executable_path="./chromedriver")
     
@@ -146,38 +107,6 @@ def update_detail():
         traceback.print_exc()
     finally:
         close_conn(conn, cursor)
-
-
-def store(country_confirmed, country_deaths, country_recovered,country_vaccined):
-    db = "test.db"
-    # drp_tb_sql = "drop table if exists covid"
-    # cur.execute(drp_tb_sql)#检查是否存在表，如存在，则删除
-
-    crt_tb_sql = """
-                    create table if not exists covid(
-                    id integer primary key autoincrement unique not null,
-                    confirmed integer,
-                    deaths integer,
-                    recovered integer,
-                    vaccined integer
-                    );
-                """
-    
-    con = sqlite3.connect(db)
-    cur = con.cursor()
-    
-    cur.execute(crt_tb_sql)#检查是否存在表，如不存在，则新创建表
-
-    insert_sql = "insert into covid (confirmed,deaths,recovered,vaccined) values (?,?,?,?)" 
-    cur.execute(insert_sql,(int(country_confirmed.replace(",", "")), 
-                            int(country_deaths.replace(",", "")), 
-                            int(country_recovered.replace(",", "")), 
-                            int(country_vaccined.replace(",", ""))))
-    con.commit()
-
-
-    cur.close()#关闭数据库交互对象
-    con.close()#关闭数据库连接对象
 
 
 if __name__ == "__main__":

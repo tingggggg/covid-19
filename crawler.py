@@ -101,8 +101,6 @@ def update_detail():
                 cursor.execute(sql, [v.get("update_time"), v.get("city"),v.get("confirm"),v.get("confirm_add")])
         conn.commit()
         print(f"{time.asctime()} 數據更新完畢，{cnt} 筆數據被更新")
-
-        
     except:
         traceback.print_exc()
     finally:

@@ -75,5 +75,6 @@ def get_c3_data():
     return jsonify({"cities": cities,
                     "confirm_add": confirm_add})
 
+
 if __name__ == "__main__":
     app.run(debug=True)

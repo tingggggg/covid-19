@@ -79,8 +79,6 @@ function set_color() {
     });
 }
 
-
-
 var paths;
 const app = new Vue({
     el: '#app',

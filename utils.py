@@ -65,4 +65,3 @@ def get_c3_data():
 
 if __name__ == "__main__":
     print(get_c3_data())
-    
